@@ -36,6 +36,8 @@ idtinit(void)
 void
 trap(struct trapframe *tf)
 {
+  uint sp, va;  // initialize variables for T_PGFLT lab 3
+ 
   if(tf->trapno == T_SYSCALL){
     if(myproc()->killed)
       exit();
@@ -77,6 +79,18 @@ trap(struct trapframe *tf)
             cpuid(), tf->cs, tf->eip);
     lapiceoi();
     break;
+
+  // page fault for growing the stack. lab 3
+  case T_PGFLT:
+    //cprintf("\nNot enough space for the stack!\nAllocating now...\n\n"); 
+    sp = STACKPOINT - myproc()->stackpg*PGSIZE + 2;
+    va = rcr2();
+    if(va >= sp - PGSIZE && va <= sp){
+      if(allocuvm(myproc()->pgdir, sp - PGSIZE, sp) == 0)
+        panic("No space for the growing stack!");
+      myproc()->stackpg++;
+    }
+    break; 
 
   //PAGEBREAK: 13
   default:
