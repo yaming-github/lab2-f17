@@ -337,7 +337,7 @@ copyuvm(pde_t *pgdir, uint sz)
   }
 
   // track the pages on stack. lab 3
-  for(i = STACKPOINT - myproc()->stackpg*PGSIZE + 2; i < STACKPOINT; i += PGSIZE){
+  for(i = STACKPOINT - myproc()->stackpg * PGSIZE; i < STACKPOINT; i += PGSIZE){
     if((pte = walkpgdir(pgdir, (void *) i, 0)) == 0)
       panic("copyuvm: pte should exit");
     if(!(*pte & PTE_P))

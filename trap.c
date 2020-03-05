@@ -83,7 +83,7 @@ trap(struct trapframe *tf)
   // page fault for growing the stack. lab 3
   case T_PGFLT:
     //cprintf("\nNot enough space for the stack!\nAllocating now...\n\n"); 
-    sp = STACKPOINT - myproc()->stackpg*PGSIZE + 2;
+    sp = STACKPOINT - myproc()->stackpg*PGSIZE;
     va = rcr2();
     if(va >= sp - PGSIZE && va <= sp){
       if(allocuvm(myproc()->pgdir, sp - PGSIZE, sp) == 0)

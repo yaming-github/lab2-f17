@@ -39,6 +39,8 @@ fetchstr(uint addr, char **pp)
   *pp = (char*)addr;
   //ep = (char*)curproc->sz;
   ep = (char*)STACKPOINT;
+  //cprintf("\naddr: %d\n", addr);
+  //cprintf("ep:%x\n", STACKPOINT);
   for(s = *pp; s < ep; s++){
     if(*s == 0)
       return s - *pp;

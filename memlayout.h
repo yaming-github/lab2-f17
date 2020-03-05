@@ -8,7 +8,7 @@
 #define KERNBASE 0x80000000         // First kernel virtual address
 #define KERNLINK (KERNBASE+EXTMEM)  // Address where kernel is linked
 
-#define STACKPOINT 0x7FFFFFFE       // The start of the stack of CS153 Lab3
+#define STACKPOINT 0x7FFFF000       // The start of the stack of CS153 Lab3
 
 #define V2P(a) (((uint) (a)) - KERNBASE)
 #define P2V(a) (((void *) (a)) + KERNBASE)
